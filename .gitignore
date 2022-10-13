@@ -34,3 +34,7 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 .env
+.dockerignore
+Dockerfile
+fly.toml
+lib/tasks/fly.rake
