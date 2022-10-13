@@ -55,6 +55,7 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'better_errors'
   gem 'web-console'
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
@@ -66,9 +67,9 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem 'better_errors'
   gem 'capybara'
-  gem 'jwt'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+
+gem 'jwt'
