@@ -66,7 +66,9 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem 'better_errors'
   gem 'capybara'
+  gem 'jwt'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
