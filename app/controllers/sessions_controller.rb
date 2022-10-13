@@ -4,9 +4,9 @@ class SessionsController < ApplicationController
 
     if user.password && user.email && user.save
       token = encode_user_data({ user_data: user.id })
-      render json: { token: }
+      render status: 201, json: { token: }
     else
-      render json: { message: 'Email is already in use' }
+      render  status: 400, json: { message: 'invalid request' }
     end
   end
 
@@ -17,9 +17,9 @@ class SessionsController < ApplicationController
 
       token = encode_user_data({ user_data: user.id, exp: 24.hours.from_now.to_i })
 
-      render json: { token: }
+      render status: 200, json: { token: }
     else
-      render json: { message: 'invalid credentials' }
+      render status: 422, json: { message: 'invalid credentials' }
     end
   end
 end

@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
     user_data = decode_data[0]['user_id'] if decode_data
     user = User.find(user_data&.id)
 
-    render json: { message: 'invalid credentials' } unless user
+    render status: 400, json: { message: 'invalid request' } unless user
   end
 
   def encode_user_data(payload)
@@ -18,8 +18,8 @@ class ApplicationController < ActionController::API
   def decode_user_data(token)
     JWT.decode token, SECRET, true, 'HS256'
   rescue JWT::ExpiredSignature
-    render json: { message: 'token expired' }
+    render status: 422, json: { message: 'token expired' }
   rescue JWT::DecodeError
-    render json: { message: 'invalid token' }
+    render status: 422, json: { message: 'invalid token' }
   end
 end
