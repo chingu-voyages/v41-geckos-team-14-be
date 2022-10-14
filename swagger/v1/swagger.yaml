@@ -4,11 +4,11 @@ info:
   title: API V1
   version: v1
 paths:
-  "/api/signup":
+  '/api/signup':
     post:
       summary: Signs up a user
       tags:
-      - Sign Up
+        - Sign Up
       parameters: []
       responses:
         '201':
@@ -26,13 +26,13 @@ paths:
                 password:
                   type: string
               required:
-              - email
-              - password
-  "/api/login":
+                - email
+                - password
+  '/api/login':
     post:
       summary: Logs in a user
       tags:
-      - Login
+        - Login
       parameters: []
       responses:
         '200':
@@ -50,10 +50,10 @@ paths:
                 password:
                   type: string
               required:
-              - email
-              - password
+                - email
+                - password
 servers:
-- url: https://{defaultHost}
-  variables:
-    defaultHost:
-      default: www.example.com
+  - url: https://{defaultHost}
+    variables:
+      defaultHost:
+        default: todoapi.fly.dev
