@@ -8,19 +8,19 @@ RSpec.describe 'api', type: :request do
       parameter name: :signup, in: :body, schema: {
         type: :object,
         properties: {
-          email: { type: :string },
+          username: { type: :string },
           password: { type: :string }
         },
-        required: %w[email password]
+        required: %w[username password]
       }
 
       response '201', 'user created' do
-        let(:signup) { { email: 'test1@test.test', password: 'password' } }
+        let(:signup) { { username: 'test1@test.test', password: 'password' } }
         run_test!
       end
 
       response '400', 'invalid request' do
-        let(:signup) { { email: 'foo' } }
+        let(:signup) { { username: 'foo' } }
         run_test!
       end
     end
@@ -33,25 +33,25 @@ RSpec.describe 'api', type: :request do
       parameter name: :login, in: :body, schema: {
         type: :object,
         properties: {
-          email: { type: :string },
+          username: { type: :string },
           password: { type: :string }
         },
-        required: %w[email password]
+        required: %w[username password]
       }
 
       response '200', 'user logged in' do
-        User.new(email: 'test2@test.test', password: 'password').save
-        let(:login) { { email: 'test2@test.test', password: 'password' } }
+        User.new(username: 'test2@test.test', password: 'password').save
+        let(:login) { { username: 'test2@test.test', password: 'password' } }
         run_test!
       end
 
       response '422', 'invalid credentials' do
-        let(:login) { { email: 'foo' } }
+        let(:login) { { username: 'foo' } }
         run_test!
       end
 
       response '422', 'invalid credentials' do
-        let(:login) { { email: 'test2@test.test', password: 'passwor' } }
+        let(:login) { { username: 'test2@test.test', password: 'passwor' } }
         run_test!
       end
     end
