@@ -1,0 +1,59 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  '/api/signup':
+    post:
+      summary: Signs up a user
+      tags:
+        - Sign Up
+      parameters: []
+      responses:
+        '201':
+          description: user created
+        '400':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+  '/api/login':
+    post:
+      summary: Logs in a user
+      tags:
+        - Login
+      parameters: []
+      responses:
+        '200':
+          description: user logged in
+        '422':
+          description: invalid credentials
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+                - username
+                - password
+servers:
+  - url: https://{defaultHost}
+    variables:
+      defaultHost:
+        default: todoapi.fly.dev
