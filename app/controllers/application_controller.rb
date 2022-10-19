@@ -3,12 +3,15 @@ require 'jwt'
 class ApplicationController < ActionController::API
   SECRET = ENV['ENCODING_SECRET']
 
-  def authentication
-    decode_data = decode_user_data(request.headers['token'])
-    user_data = decode_data[0]['user_id'] if decode_data
-    user = User.find(user_data&.id)
+  def authenticate_user
+    unless request.headers['token']
+      render status: 400, json: { message: 'invalid request' }
+      return
+    end
+    decoded_data = decode_user_data(request.headers['token'])
+    return decoded_data if decoded_data.include? 'Error:'
 
-    render status: 400, json: { message: 'invalid request' } unless user
+    decoded_data[0]['user_data']
   end
 
   def encode_user_data(payload)
