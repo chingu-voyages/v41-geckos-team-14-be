@@ -18,8 +18,8 @@ class ApplicationController < ActionController::API
   def decode_user_data(token)
     JWT.decode token, SECRET, true, { algorithm: 'HS256' }
   rescue JWT::ExpiredSignature
-    render status: 422, json: { message: 'token expired' }
+    render status: 422, json: { message: 'Error: token expired' }
   rescue JWT::DecodeError
-    render status: 422, json: { message: 'invalid token' }
+    render status: 422, json: { message: 'Error: invalid token' }
   end
 end
