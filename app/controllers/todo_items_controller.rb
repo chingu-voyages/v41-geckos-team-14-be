@@ -25,11 +25,13 @@ class TodoItemsController < ApplicationController
   # PATCH/PUT /api/todo_items/1
   # PATCH/PUT /api/todo_items/1.json
   def update
-    params[:user_id] = @user_id
-    unless @todo_item.user_id == @user_id
-      render status: 401, json: { message: 'Todo item not found for user' }
+    unless @todo_item && @todo_item.user_id == @user_id
+      render status: 404, json: { message: 'Todo item not found' }
       return
     end
+
+    params[:user_id] = @user_id
+
     if @todo_item.update(todo_item_params)
       render json: @todo_item
     else
@@ -40,6 +42,10 @@ class TodoItemsController < ApplicationController
   # DELETE /api/todo_items/1
   # DELETE /api/todo_items/1.json
   def destroy
+    unless @todo_item && @todo_item.user_id == @user_id
+      render status: 404, json: { message: 'Todo item not found' }
+      return
+    end
     if @todo_item.user_id == @user_id
       @todo_item.destroy
       render json: { message: 'Todo item deleted' }
