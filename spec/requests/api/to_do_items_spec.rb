@@ -14,10 +14,8 @@ RSpec.describe 'api/to_do_items', type: :request do
           date: { type: :string },
           time: { type: :string },
           priority: { type: :integer },
-          completed: { type: :boolean },
-          user_id: { type: :integer }
-        },
-        required: %w[user_id]
+          completed: { type: :boolean }
+        }
       }
 
       response '200', 'todo item created' do
@@ -72,10 +70,8 @@ RSpec.describe 'api/to_do_items', type: :request do
           date: { type: :string },
           time: { type: :string },
           priority: { type: :integer },
-          completed: { type: :boolean },
-          user_id: { type: :integer }
-        },
-        required: %w[user_id]
+          completed: { type: :boolean }
+        }
       }
 
       response '200', 'todo item updated' do
@@ -113,10 +109,8 @@ RSpec.describe 'api/to_do_items', type: :request do
           date: { type: :string },
           time: { type: :string },
           priority: { type: :integer },
-          completed: { type: :boolean },
-          user_id: { type: :integer }
-        },
-        required: %w[user_id]
+          completed: { type: :boolean }
+        }
       }
 
       response '200', 'todo item updated' do
