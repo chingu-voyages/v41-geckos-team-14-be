@@ -3,12 +3,15 @@ require 'jwt'
 class ApplicationController < ActionController::API
   SECRET = ENV['ENCODING_SECRET']
 
-  def authentication
-    decode_data = decode_user_data(request.headers['token'])
-    user_data = decode_data[0]['user_id'] if decode_data
-    user = User.find(user_data&.id)
+  def authenticate_user
+    unless request.headers['Authorization']
+      render status: 400, json: { message: 'invalid request' }
+      return
+    end
+    decoded_data = decode_user_data(request.headers['Authorization'].split(' ')[1])
+    return decoded_data if decoded_data.include? 'Error:'
 
-    render status: 400, json: { message: 'invalid request' } unless user
+    decoded_data[0]['user_data']
   end
 
   def encode_user_data(payload)
@@ -16,10 +19,10 @@ class ApplicationController < ActionController::API
   end
 
   def decode_user_data(token)
-    JWT.decode token, SECRET, true, 'HS256'
+    JWT.decode token, SECRET, true, { algorithm: 'HS256' }
   rescue JWT::ExpiredSignature
-    render status: 422, json: { message: 'token expired' }
+    render status: 422, json: { message: 'Error: token expired' }
   rescue JWT::DecodeError
-    render status: 422, json: { message: 'invalid token' }
+    render status: 422, json: { message: 'Error: invalid token' }
   end
 end

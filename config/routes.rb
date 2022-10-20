@@ -8,4 +8,10 @@ Rails.application.routes.draw do
 
   post '/api/login', to: 'sessions#login'
   post '/api/signup', to: 'sessions#signup'
+
+  get    'api/todo_items'          => 'todo_items#index'
+  post   'api/todo_items'          => 'todo_items#create'
+  patch  'api/todo_items/:id'      => 'todo_items#update'
+  put    'api/todo_items/:id'      => 'todo_items#update'
+  delete 'api/todo_items/:id'      => 'todo_items#destroy'
 end
