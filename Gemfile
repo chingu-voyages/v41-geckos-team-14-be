@@ -75,5 +75,6 @@ group :test do
 end
 
 gem 'jwt'
+gem 'rack-cors'
 gem 'rspec-rails', '~> 6.0.0'
 gem 'rswag'
