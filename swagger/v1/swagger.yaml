@@ -1,0 +1,187 @@
+---
+openapi: 3.0.1
+info:
+  title: API V1
+  version: v1
+paths:
+  "/api/signup":
+    post:
+      summary: Signs up a user
+      tags:
+      - Sign Up
+      parameters: []
+      responses:
+        '201':
+          description: user created
+        '400':
+          description: invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+              - username
+              - password
+  "/api/login":
+    post:
+      summary: Logs in a user
+      tags:
+      - Login
+      parameters: []
+      responses:
+        '200':
+          description: user logged in
+        '422':
+          description: invalid credentials
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+              required:
+              - username
+              - password
+  "/api/todo_items":
+    post:
+      summary: Creates a todo item
+      tags:
+      - Todo Items
+      security:
+      - bearer: []
+      parameters: []
+      responses:
+        '200':
+          description: empty todo item created
+        '422':
+          description: invalid auth token
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task:
+                  type: string
+                date:
+                  type: string
+                time:
+                  type: string
+                priority:
+                  type: integer
+                completed:
+                  type: boolean
+    get:
+      summary: Retrieves all todo items for user
+      tags:
+      - Todo Items
+      security:
+      - bearer: []
+      responses:
+        '200':
+          description: todo items retrieved
+  "/api/todo_items/{id}":
+    put:
+      summary: Updates a todo item
+      tags:
+      - Todo Items
+      security:
+      - bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: todo item updated
+        '404':
+          description: todo item not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task:
+                  type: string
+                date:
+                  type: string
+                time:
+                  type: string
+                priority:
+                  type: integer
+                completed:
+                  type: boolean
+    patch:
+      summary: Updates a todo item
+      tags:
+      - Todo Items
+      security:
+      - bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: todo item updated
+        '404':
+          description: todo item not found
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                task:
+                  type: string
+                date:
+                  type: string
+                time:
+                  type: string
+                priority:
+                  type: integer
+                completed:
+                  type: boolean
+    delete:
+      summary: Deletes a todo item
+      tags:
+      - Todo Items
+      security:
+      - bearer: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: todo item deleted
+        '404':
+          description: todo item not found
+servers:
+  - url: https://{defaultHost}
+    variables:
+      defaultHost:
+        default: todoapi.fly.dev
+components:
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
