@@ -29,11 +29,6 @@ The planned core functionality of the project (managing to-do-lists) works fine 
 - Background image taken from [Figma](https://www.figma.com/)
 - [API](https://todoapi.fly.dev/api-docs/index.html) coded by [@Cerdtruir](https://github.com/Cerdtruir). The API is hosted on [Fly.io](https://fly.io/).
 
-## Development mode
-
-In the project directory, run `npm start` in the terminal to start the app in development mode.
-Go to [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
 ## Contributors
 
 - [@ellrub](https://github.com/ellrub)
